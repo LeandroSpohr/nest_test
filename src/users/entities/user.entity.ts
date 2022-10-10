@@ -1,15 +1,15 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('users')
-export class User {
+@Entity('usuarios')
+export default class UserEntity {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column({ name: 'razao_social', type: 'varchar' })
+  @Column({ name: 'nome', type: 'varchar' })
   username: string;
 
-  @Column({ name: 'razao_social', type: 'varchar' })
-  password: string;
+  @Column({ name: 'ativo', type: 'boolean' })
+  password: boolean;
 
   @Column({
     name: 'criado_em',
