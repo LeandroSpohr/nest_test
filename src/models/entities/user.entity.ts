@@ -6,10 +6,10 @@ export default class UserEntity {
   id?: number;
 
   @Column({ name: 'nome', type: 'varchar' })
-  username: string;
+  name: string;
 
   @Column({ name: 'ativo', type: 'boolean' })
-  password: boolean;
+  active: boolean;
 
   @Column({
     name: 'criado_em',
