@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import UsersOutput from '../models/dto/output/users.output';
 import UsersConverter from '../models/converters/users.converter';
+import UsersInput from '../models/dto/input/users.input';
 
 @Injectable()
 export class UsersService {
@@ -16,6 +17,18 @@ export class UsersService {
 
   findAll() {
     return this.userRepo.find();
+  }
+
+  async save(input: UsersInput) {
+    const entity = new UserEntity();
+
+    const convertedEntity = this.usersConverter.inputToEntity(input, entity);
+
+    const savedEntity = await this.userRepo.save(convertedEntity);
+
+    const output = this.usersConverter.entityToOutput(savedEntity);
+
+    return output;
   }
 
   async findOne(id: number) {

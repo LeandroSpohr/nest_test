@@ -1,7 +1,17 @@
-import { Controller, Get, Param, Delete, Patch, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Delete,
+  Patch,
+  Post,
+  Query,
+  Body,
+} from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { ApiTags, ApiCreatedResponse } from '@nestjs/swagger';
 import UsersOutput from '../models/dto/output/users.output';
+import UsersInput from '../models/dto/input/users.input';
 
 @ApiTags('Users')
 @Controller('users')
@@ -11,6 +21,11 @@ export class UsersController {
   @Get()
   findAll() {
     return this.usersService.findAll();
+  }
+
+  @Post()
+  save(@Body() input: UsersInput) {
+    return this.usersService.save(input);
   }
 
   @Get(':id')
