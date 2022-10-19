@@ -4,12 +4,14 @@ import UserEntity from '../models/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import UsersOutput from '../models/dto/output/users.output';
+import UsersConverter from '../models/converters/users.converter';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepo: Repository<UserEntity>,
+    private readonly usersConverter: UsersConverter,
   ) {}
 
   findAll() {
@@ -17,17 +19,11 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    const userEntity = await this.userRepo.findOne({ where: { id } });
+    const userEntity = await this.userRepo.findOne({ where: { id: id } });
 
-    const userOutput = new UsersOutput();
+    const output = this.usersConverter.entityToOutput(userEntity);
 
-    userOutput.id = userEntity.id;
-    userOutput.name = userEntity.name;
-    userOutput.active = userEntity.active;
-    userOutput.createdAt = userEntity.createdAt;
-    userOutput.updatedAt = userEntity.updatedAt;
-
-    return userOutput;
+    return output;
   }
 
   async updateName(id: number, name: string) {
@@ -37,15 +33,9 @@ export class UsersService {
 
     const userSaved = await this.userRepo.save(userEntity);
 
-    const userOutput = new UsersOutput();
+    const output = this.usersConverter.entityToOutput(userSaved);
 
-    userOutput.id = userSaved.id;
-    userOutput.name = userSaved.name;
-    userOutput.active = userSaved.active;
-    userOutput.createdAt = userSaved.createdAt;
-    userOutput.updatedAt = userSaved.updatedAt;
-
-    return userOutput;
+    return output;
   }
 
   remove(id: number) {
