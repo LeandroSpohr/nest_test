@@ -7,6 +7,7 @@ import {
   Post,
   Query,
   Body,
+  Put,
 } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { ApiTags, ApiCreatedResponse } from '@nestjs/swagger';
@@ -19,13 +20,23 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  findAll() {
+  @ApiCreatedResponse({ type: UsersOutput, isArray: true })
+  findAll(): Promise<UsersOutput[]> {
     return this.usersService.findAll();
   }
 
   @Post()
   save(@Body() input: UsersInput) {
     return this.usersService.save(input);
+  }
+
+  @Put(':id')
+  @ApiCreatedResponse({ type: UsersOutput })
+  update(
+    @Param('id') id: string,
+    @Body() input: UsersInput,
+  ): Promise<UsersOutput> {
+    return this.usersService.update(+id, input);
   }
 
   @Get(':id')

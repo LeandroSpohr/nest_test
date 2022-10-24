@@ -15,14 +15,35 @@ export class UsersService {
     private readonly usersConverter: UsersConverter,
   ) {}
 
-  findAll() {
-    return this.userRepo.find();
+  async findAll(): Promise<UsersOutput[]> {
+    const userEntities = await this.userRepo.find();
+
+    const outputList = userEntities.map((entity) => {
+      return this.usersConverter.entityToOutput(entity);
+    });
+
+    return outputList;
   }
 
   async save(input: UsersInput) {
     const entity = new UserEntity();
 
     const convertedEntity = this.usersConverter.inputToEntity(input, entity);
+
+    const savedEntity = await this.userRepo.save(convertedEntity);
+
+    const output = this.usersConverter.entityToOutput(savedEntity);
+
+    return output;
+  }
+
+  async update(id: number, input: UsersInput): Promise<UsersOutput> {
+    const userEntity = await this.userRepo.findOne({ where: { id: id } });
+
+    const convertedEntity = this.usersConverter.inputToEntity(
+      input,
+      userEntity,
+    );
 
     const savedEntity = await this.userRepo.save(convertedEntity);
 
