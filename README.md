@@ -29,7 +29,7 @@
 ## Installation
 
 ```bash
-$ yarn
+yarn
 ```
 
 ## Init Database
@@ -39,33 +39,37 @@ After run the migrations:
 
 ```bash
 # development
-$ yarn typeorm migration:run -d ./src/infrastructure/db/ormconfig.ts
+yarn typeorm migration:run -d ./src/infrastructure/db/ormconfig.ts
+```
+For create migration run (where CreateUser is the filename):
+```
+yarn typeorm migration:create ./src/migrations/CreateUser 
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ yarn start
+yarn start
 
 # watch mode
-$ yarn start:dev
+yarn start:dev
 
 # production mode
-$ yarn start:prod
+yarn start:prod
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ yarn test
+yarn test
 
 # e2e tests
-$ yarn test:e2e
+yarn test:e2e
 
 # test coverage
-$ yarn test:cov
+yarn test:cov
 ```
 
 ## Support
