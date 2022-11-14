@@ -8,5 +8,8 @@ export default class UsersInput {
   name: string;
 
   @ApiProperty()
+  password: string;
+
+  @ApiProperty()
   active: boolean;
 }

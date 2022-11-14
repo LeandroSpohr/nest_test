@@ -9,6 +9,7 @@ export default class UsersConverter {
   inputToEntity(input: UsersInput, entity: UserEntity) {
     entity.id = input.id;
     entity.name = input.name;
+    entity.password = input.password;
     entity.active = input.active;
     entity.createdAt = new Date();
     entity.updatedAt = new Date();
