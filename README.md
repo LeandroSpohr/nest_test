@@ -29,33 +29,43 @@
 ## Installation
 
 ```bash
-$ npm install
+$ yarn
+```
+
+## Init Database
+First create the `.env` file with constants: DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME, DB_PORT.
+
+After run the migrations:
+
+```bash
+# development
+$ yarn typeorm migration:run -d ./src/infrastructure/db/ormconfig.ts
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+$ yarn start
 
 # watch mode
-$ npm run start:dev
+$ yarn start:dev
 
 # production mode
-$ npm run start:prod
+$ yarn start:prod
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
+$ yarn test
 
 # e2e tests
-$ npm run test:e2e
+$ yarn test:e2e
 
 # test coverage
-$ npm run test:cov
+$ yarn test:cov
 ```
 
 ## Support
